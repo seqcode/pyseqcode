@@ -31,151 +31,151 @@
 
  
 '''
-class Client(){
-    def __init__(self,hostname=None, portnum=None, username=None, passwd=None, persistent=False){
+class Client():
+    def __init__(self,hostname=None, portnum=None, username=None, passwd=None, persistent=False):
         '''Connects to a ReadDB server on the specified host and port using the specified 
            username and password. Or creates the default connection
            as specified by ~/.readdb_passwd or a readdb_passwd found in the classpath
            Must have keys hostname, port, username, and passwd in the format shown in the HOWTO file'''
         _init(hostname, portnum, username, passwd, persistent)
-    }
+    
 
-    def _init(hostname, portnum, username, passwd, persistent){
+    def _init(hostname, portnum, username, passwd, persistent):
         return NotImplemented
-    }
+    
 
-    def setPersistentConnection(persistent){
+    def setPersistentConnection(persistent):
         return NotImplemented
-    }
+    
 
-    def _openConnection(){
+    def _openConnection():
         return NotImplemented
-    }
-    def connectionAlive(self){
+    
+    def connectionAlive(self):
         '''Pings the ReadDB server,
         returns ture if the server pongs'''
         return NotImplemented
-    }
+    
 
-    def getServerInfo(self){
+    def getServerInfo(self):
         '''Return some basic information about the server'''
         return NotImplemented
-    }
+    
 
-    def _authenticate(self,hostname, username, password){
+    def _authenticate(self,hostname, username, password):
         '''Performs the SASL authentication exchange with the server.'''
         return NotImplemented
-    }
+    
 
-    def _sendString(self,s){
+    def _sendString(self,s):
         '''Sends a string to the server and flushes the socket'''
         return NotImplemented
-    }
+    
 
-    def _readLine(self){
+    def _readLine(self):
         '''Reads one line from the server'''
         return NotImplemented
-    }
+    
 
-    def shutdown(self){
+    def shutdown(self):
         '''Tells the server to shut itself down.  Use this to stop the server process.'''
         return NotImplemented
-    }
+    
 
-    def storeSingle(alignid, allhits, isType2){
+    def storeSingle(alignid, allhits, isType2):
         '''Stores a set of SingleHit objects (representing an un-paired or single-ended read
            aligned to a genome) in the specified alignment. The hits are appended
            to any hits that have already been stored in the alignment.'''
         return NotImplemented
-    }
+    
 
-    def storePaired(alignid, allhits){
+    def storePaired(alignid, allhits):
         '''Stores a set of PairedHit objects (representing an paired-ended read
            aligned to a genome) in the specified alignment.  The hits are appended
             to any hits that have already been stored in the alignment'''
         return NotImplemented
-    }
     
-    def exists(alignid){
+    
+    def exists(alignid):
         '''Returns true if the alignment and chromosome exist and are accessible
            to the user.  Returns false if they don't exist or if they aren't accessible'''
         return NotImplemented
-    }
+    
 
-    def deleteAlignment(aligned, isPaired){
+    def deleteAlignment(aligned, isPaired):
         ''' Deletes an alignment (all chromosomes).  isPaired specifies whether to delete
             the paired or single ended reads.'''
         return NotImplemented
-    }
+    
 
-    def getChroms(alignid, isType2, isPaired, isLeft){
+    def getChroms(alignid, isType2, isPaired, isLeft):
         '''Returns the set of chromosomes that exist for this alignment.'''
         return NotImplemented
-    }
+    
 
-    def getCount(alignid, isType2, isPaired, isLeft, plusStrand){
+    def getCount(alignid, isType2, isPaired, isLeft, plusStrand):
         '''Returns the total number of hits in this alignment.'''
         return NotImplemented
-    }
+    
 
-    def getWeight(alignid, chromid, isType2, plusStrand){
+    def getWeight(alignid, chromid, isType2, plusStrand):
         '''Returns the sum of the weights of all hits in this alignment'''
         return NotImplemented
-    }
+    
 
-    def getNumPositions(alignid, isType2, isPaired, isLeft, plusStrand){
+    def getNumPositions(alignid, isType2, isPaired, isLeft, plusStrand):
         '''Returns the total number of unique positions in this alignment.'''
         return NotImplemented
-    }
     
-    def getNumPairedPositions(alignid, isType2, isLeft){
+    
+    def getNumPairedPositions(alignid, isType2, isLeft):
         '''Returns the total number of unique paired positions in this alignment.'''
         return NotImplemented
-    }
+    
 
-    def getCount(alignid, chromid, isType2, paired, start, stop, minWeight, isLeft, plusStrand){
+    def getCount(alignid, chromid, isType2, paired, start, stop, minWeight, isLeft, plusStrand):
         '''returns the total number of hits on the specified chromosome in the alignment.
-           Any of the object parameters can be set to null to specify "no value"'''    
-           return NotImplemented
-    }
+           Any of the object parameters can be set to null to specify "no value"'''
+        return NotImplemented
+    
 
-    def getWeight(alignid, chromid, isType2, paired, start, stop, minWeight, isLeft, plusStrand){
+    def getWeight(alignid, chromid, isType2, paired, start, stop, minWeight, isLeft, plusStrand):
         '''returns the total weight on the specified chromosome in this alignment'''
         return NotImplemented
-    }
+    
 
-    def getNumPositions(alignid, chromid, isType2, paired, start, stop, minWeight, isLeft, plusStrand){
+    def getNumPositions(alignid, chromid, isType2, paired, start, stop, minWeight, isLeft, plusStrand):
         '''returns the total number of unique positions on the specified chromosome in the alignment.
            Any of the object parameters can be set to null to specify "no value"'''
-           return NotImplemented
-    }
+        return NotImplemented
+    
 
-    def getNumPairedPositions(alignid, chromid, isType2, start, stop, minWeight, isLeft){
+    def getNumPairedPositions(alignid, chromid, isType2, start, stop, minWeight, isLeft):
         '''returns the total number of unique paired positions on the specified chromosome in the alignment.
            Note that total number of unique paired positions will depend on the setting of "isLeft",
            e.g. will count pair positions with left read in specified chromosome.
            Any of the object parameters can be set to null to specify "no value"'''
-           return NotImplemented
-    }
+        return NotImplemented
+    
 
-    def getPositions(alignid, chromid, isType2, paired, start, stop, minWeight, isLeft, plusStrand){
+    def getPositions(alignid, chromid, isType2, paired, start, stop, minWeight, isLeft, plusStrand):
         '''returns the sorted (ascending order) hit positions in the specified range of a chromosome,alignment pair.'''
         return NotImplemented
-    }
+    
 
-    def getWeightsRange(alignid, chromid, isType2, paired, start, stop, minWeight, isLeft, plusStrand){
+    def getWeightsRange(alignid, chromid, isType2, paired, start, stop, minWeight, isLeft, plusStrand):
         '''returns the hit weights in the specified range of a chromosome,alignment pair.  The weights
            will be in the same order as the sorted positions returned by getPositions'''
         return NotImplemented
-    }
+    
 
-    def getSingleHits(alignid, chromid, isType2, start, stop, minWeight, plusStrand){
+    def getSingleHits(alignid, chromid, isType2, start, stop, minWeight, plusStrand):
         return NotImplemented
-    }
+    
 
-    def getPairedHits(alignid, chromid, isType2, start, stop, minWeight, plusStrand){
+    def getPairedHits(alignid, chromid, isType2, start, stop, minWeight, plusStrand):
         return NotImplemented
-    }
+    
     '''
     returns a TreeMap from positions to counts representing a histogram
     of the hits in a range with the specified binsize.  Bins with a count
@@ -195,66 +195,65 @@ class Client(){
     to get the sign right depending on the strandedness of the chromosome that you're
     working with.
     '''
-    def getHistogram(alignid, chromid, isType2, paired, extension, binsize, start, stop, minWeight, plusStrand){
+    def getHistogram(alignid, chromid, isType2, paired, extension, binsize, start, stop, minWeight, plusStrand):
         return NotImplemented
-    }
+    
 
-    def getHistogram(alignid, chromid, isType2, paired, extension, binsize, dedup, start, stop, minWeight, plusStrand){
+    def getHistogram(alignid, chromid, isType2, paired, extension, binsize, dedup, start, stop, minWeight, plusStrand):
         return NotImplemented
-    }
+    
 
-    def getWeightHistogram(alignid, chromid, isType2, paired, extension, binsize, start, stop, minWeight, plusStrand){
+    def getWeightHistogram(alignid, chromid, isType2, paired, extension, binsize, start, stop, minWeight, plusStrand):
         return NotImplemented
-    }
+    
 
-    def getWeightHistogram(alignid, chromid, isType2, paired, extension, binsize, dedup, start, stop, minWeight, plusStrand){
+    def getWeightHistogram(alignid, chromid, isType2, paired, extension, binsize, dedup, start, stop, minWeight, plusStrand):
         return NotImplemented
-    }
+    
 
-    def getHistogram(alignids, chromid, isType2, paired, extension, binsize, start, stop, minWeight, plusStrand){
+    def getHistogram(alignids, chromid, isType2, paired, extension, binsize, start, stop, minWeight, plusStrand):
         return NotImplemented
-    }
+    
 
-    def getHistogram(alignids, chromid, isType2, paired, extension, binsize, dedup, start, stop, minWeight, plusStrand){
+    def getHistogram(alignids, chromid, isType2, paired, extension, binsize, dedup, start, stop, minWeight, plusStrand):
         return NotImplemented
-    }
+    
 
-    def getWeightHistogram(alignids, chromid, isType2, paired, extension, binsize, start, stop, minWeight, plusStrand){
+    def getWeightHistogram(alignids, chromid, isType2, paired, extension, binsize, start, stop, minWeight, plusStrand):
         return NotImplemented
-    }
+    
 
-    def getWeightHistogram(alignids, chromid, isType2, paired, extension, binsize, dedup, start, stop, minWeight, plusStrand){
+    def getWeightHistogram(alignids, chromid, isType2, paired, extension, binsize, dedup, start, stop, minWeight, plusStrand):
         return NotImplemented
-    }
+    
 
-    def getACL(alignid){
+    def getACL(alignid):
         '''Returns a Map from READ, WRITE, and ADMIN to lists of principals that have those privileges on the specified alignment.'''
         return NotImplemented
-    }
+    
 
-    def _fillPartACL(output){
+    def _fillPartACL(output):
         '''fills one section of the acl output data structure.  A section
            is either read, write, or admin.'''
         return NotImplemented
-    }
+    
 
-    def setACL(alignid, changes){
+    def setACL(alignid, changes):
         '''Applies the specified ACLChangeEntry objects to the acl for this experiment/chromosome.'''
         return NotImplemented
-    }
     
-    def addToGroup(princ, group){
+    
+    def addToGroup(princ, group):
         '''Adds the specified user (princ) to a group.'''
         return NotImplemented
-    }
+    
 
-    def close(){
+    def close():
         '''Closes this connection to the server.'''
         return NotImplemented
-    }
+    
 
-    def closeConnection(){
+    def closeConnection():
         '''Closes this connection to the server.'''
         return NotImplemented
-    }
-}
+    
