@@ -31,6 +31,9 @@
 
  
 '''
+import socket
+import struct
+
 class Client():
     def __init__(self,hostname=None, portnum=None, username=None, passwd=None, persistent=False):
         '''Connects to a ReadDB server on the specified host and port using the specified 
@@ -42,14 +45,19 @@ class Client():
 
     def _init(hostname, portnum, username, passwd, persistent):
         return NotImplemented
-    
+
 
     def setPersistentConnection(persistent):
         return NotImplemented
     
 
     def _openConnection():
-        return NotImplemented
+        s = socket.socket((hostname,portnum))
+        s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER, struct.pack('ii', 1, 0))
+        s.setsockopt(SOL_SOCKET., SO_SNDBUF, 8192*20)
+        s.setsockopt(SOL_SOCKET., SO_RCVBUF, 8192*20)
+        s.settimeout(6000)
     
     def connectionAlive(self):
         '''Pings the ReadDB server,
