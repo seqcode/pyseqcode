@@ -55,6 +55,6 @@ def train_generator(filenanme, size, seqlen, dtype):
                 else:
                     yield fmt(buf)
                     buf = [] # clean buffer
-                    buf.append(line.strip())
+                    buf = handler(buf,line)
                     line_index += 1 # reset line index
             fp.seek(0) # reset file pointer
