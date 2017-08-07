@@ -33,6 +33,7 @@
 '''
 import socket
 import struct
+from Request import Request
 
 class Client():
     def __init__(self,hostname=None, portnum=None, username=None, passwd=None, persistent=False):
@@ -40,7 +41,11 @@ class Client():
            username and password. Or creates the default connection
            as specified by ~/.readdb_passwd or a readdb_passwd found in the classpath
            Must have keys hostname, port, username, and passwd in the format shown in the HOWTO file'''
-        _init(hostname, portnum, username, passwd, persistent)
+        self.hostname = hostname
+        self.portnum = portnum
+        self.username = username
+        self.passwd = passwd
+        _init(self.hostname, self.portnum, self.username, self.passwd, self.persistent)
     
 
     def _init(hostname, portnum, username, passwd, persistent):
@@ -52,22 +57,34 @@ class Client():
     
 
     def _openConnection():
-        s = socket.socket((hostname,portnum))
-        s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        s.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER, struct.pack('ii', 1, 0))
-        s.setsockopt(SOL_SOCKET., SO_SNDBUF, 8192*20)
-        s.setsockopt(SOL_SOCKET., SO_RCVBUF, 8192*20)
-        s.settimeout(6000)
+        # s = socket.socket((hostname,portnum))
+        # s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        # s.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER, struct.pack('ii', 1, 0))
+        # s.setsockopt(SOL_SOCKET., SO_SNDBUF, 8192*20)
+        # s.setsockopt(SOL_SOCKET., SO_RCVBUF, 8192*20)
+        # s.settimeout(6000)
+        return NotImplemented
     
     def connectionAlive(self):
         '''Pings the ReadDB server,
         returns ture if the server pongs'''
-        return NotImplemented
-    
+        try:
+            self._openConnection()
+            request = Request()
+            request.type = "ping"
+            self._sendString(request.toString())
+            response = self._readLine()
+            self.closeConnection()
+            if response == "pong":
+                return True
+            else:
+                return False
+        except:
+            return False
 
     def getServerInfo(self):
         '''Return some basic information about the server'''
-        return NotImplemented
+        return("ReadDB\t"+ self.hostname+"\t"+self.portnum+"\t"+self.username)
     
 
     def _authenticate(self,hostname, username, password):
@@ -87,7 +104,16 @@ class Client():
 
     def shutdown(self):
         '''Tells the server to shut itself down.  Use this to stop the server process.'''
-        return NotImplemented
+        self._openConnection()
+        request = Request()
+        request.type = "shutdown"
+        self._sendString(request.toString())
+        response = self._readLine()
+        if response != "OK":
+            print(response)
+        else:
+            print("ReadDB cache cleared")
+        self.closeConnection()
     
 
     def storeSingle(alignid, allhits, isType2):
